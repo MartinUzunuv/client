@@ -25,23 +25,29 @@ const Scene = () => {
       
         const env = scene.createDefaultEnvironment();
       
-        // here we add XR support
         const xr = await scene.createDefaultXRExperienceAsync({
           floorMeshes: [env.ground],
         });
-      
+        engine.runRenderLoop(function () {
+            scene.render();
+          });
+          window.addEventListener("resize", function () {
+            engine.resize();
+          });
+          console.log(xr)
         return scene;
       };
 
 
 
     var scene = createScene();
-    engine.runRenderLoop(function () {
-      scene.render();
-    });
-    window.addEventListener("resize", function () {
-      engine.resize();
-    });
+    console.log(scene)
+    // engine.runRenderLoop(function () {
+    //   scene.render();
+    // });
+    // window.addEventListener("resize", function () {
+    //   engine.resize();
+    // });
   }, []);
 
   return <canvas width="600" height="400" ref={canvasRef} />;
